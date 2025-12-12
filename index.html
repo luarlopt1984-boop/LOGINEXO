@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Loginexo — Plataforma logística moderna</title>
+  <meta name="description" content="Loginexo — backend y microservicios para soluciones logísticas. Interfaz de demostración con diseño moderno y responsive." />
+
+  <!-- Estilos: diseño moderno, responsive y accesible -->
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent-1:#6ee7b7;
+      --accent-2:#60a5fa;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      --max-width:1200px;
+      --shadow: 0 8px 30px rgba(2,6,23,0.6);
+      --glass-border: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(96,165,250,0.06), transparent 10%),
+        radial-gradient(1000px 500px at 90% 90%, rgba(110,231,183,0.04), transparent 10%),
+        var(--bg);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:24px;
+      font-size:16px;
+    }
+
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Main card */
+    .main {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding:32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.03);
+      overflow:hidden;
+    }
+
+    header.top {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .brand {
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .logo {
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background: linear-gradient(135deg,var(--accent-2),var(--accent-1));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#04263b;
+      box-shadow: 0 6px 18px rgba(96,165,250,0.08), inset 0 -6px 18px rgba(255,255,255,0.03);
+      font-size:20px;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:-0.2px;
+    }
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+
+    nav.actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .btn {
+      background:transparent;
+      color:var(--accent-2);
+      border:1px solid rgba(96,165,250,0.12);
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .18s ease;
+      backdrop-filter: blur(6px);
+    }
+    .btn:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(96,165,250,0.06)}
+    .btn.primary{
+      background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+      color:#04263b;
+      border:none;
+      box-shadow: 0 10px 30px rgba(96,165,250,0.12);
+    }
+
+    /* Hero */
+    .hero{
+      display:flex;
+      gap:24px;
+      align-items:center;
+      margin-bottom:22px;
+    }
+    .hero .copy{
+      flex:1;
+    }
+    .hero h2{
+      margin:0 0 10px 0;
+      font-size:28px;
+      line-height:1.05;
+      letter-spacing:-0.4px;
+    }
+    .hero p{margin:0;color:var(--muted);font-size:15px;max-width:60ch}
+
+    .stats{
+      display:flex;
+      gap:12px;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+    .stat{
+      background:var(--glass);
+      border-radius:12px;
+      padding:10px 14px;
+      min-width:120px;
+      border:1px solid rgba(255,255,255,0.02);
+      color:#dff7ee;
+      font-weight:700;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .stat small{font-weight:600;color:var(--muted);font-size:12px}
+
+    /* Features grid */
+    .features{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:22px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:14px;
+      border:1px solid rgba(255,255,255,0.02);
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .icon{
+      width:44px;height:44px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--glass-border);
+      color:var(--accent-2);
+      font-weight:700;
+      flex-shrink:0;
+      box-shadow: inset 0 -6px 18px rgba(255,255,255,0.02);
+    }
+    .card h3{margin:0;font-size:15px}
+    .card p{margin:6px 0 0 0;color:var(--muted);font-size:13px}
+
+    /* Right column */
+    .aside {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding:20px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.03);
+      height:fit-content;
+    }
+    .panel-title{font-size:14px;margin:0 0 12px 0}
+    .list{display:flex;flex-direction:column;gap:10px}
+    .list-item{
+      background:var(--card);
+      padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+    }
+    .list-item small{color:var(--muted);font-size:13px}
+    .badge{
+      background:linear-gradient(90deg,var(--accent-2),var(--accent-1));
+      color:#04263b;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px;
+    }
+
+    footer{
+      margin-top:22px;
+      display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px;
+    }
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .container{grid-template-columns:1fr}
+      body{padding:28px 16px}
+    }
+
+    /* subtle entrance animation */
+    .fade-in{animation:fadeIn .6s ease both}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <main class="container fade-in" role="main" aria-labelledby="main-title">
+    <section class="main" aria-label="Panel principal">
+      <header class="top" role="banner">
+        <div class="brand" aria-hidden="false">
+          <div class="logo" aria-hidden="true">LX</div>
+          <div>
+            <h1 id="main-title">Loginexo</h1>
+            <p>Plataforma logística — backend y microservicios</p>
+          </div>
+        </div>
+
+        <nav class="actions" aria-label="Acciones principales">
+          <button class="btn" onclick="toggleTheme()" title="Cambiar tema">Tema</button>
+          <button class="btn" onclick="openDocs()" title="Documentación">Docs</button>
+          <button class="btn primary" onclick="deploy()" title="Desplegar">Desplegar</button>
+        </nav>
+      </header>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="copy">
+          <h2 id="hero-title">Despliegue rápido y confiable para soluciones logísticas</h2>
+          <p>Scaffold completo con backend Express + TypeScript, microservicios y pipelines listos para integrarse con ACR y Container Apps. Diseño pensado para claridad, rendimiento y accesibilidad.</p>
+
+          <div class="stats" role="list" aria-label="Estadísticas rápidas">
+            <div class="stat" role="listitem">
+              <span>3</span>
+              <small>Servicios</small>
+            </div>
+            <div class="stat" role="listitem">
+              <span>ACR</span>
+              <small>Registro de contenedores</small>
+            </div>
+            <div class="stat" role="listitem">
+              <span>CI/CD</span>
+              <small>Pipelines listos</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual simple con SVG -->
+        <div aria-hidden="true" style="width:260px;display:flex;align-items:center;justify-content:center">
+          <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustración de microservicios">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#60A5FA"/>
+                <stop offset="1" stop-color="#6EE7B7"/>
+              </linearGradient>
+            </defs>
+            <rect x="10" y="10" width="200" height="200" rx="28" fill="url(#g1)" opacity="0.08"/>
+            <g transform="translate(30,30)" fill="#0b1220" opacity="0.95">
+              <rect x="0" y="0" width="60" height="60" rx="10" fill="#071226"/>
+              <rect x="80" y="0" width="60" height="60" rx="10" fill="#071226"/>
+              <rect x="40" y="80" width="60" height="60" rx="10" fill="#071226"/>
+            </g>
+            <g stroke="#6EE7B7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+              <path d="M90 70 L120 90" />
+              <path d="M70 90 L100 110" />
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <section class="features" aria-label="Características principales">
+        <article class="card" role="article">
+          <div class="icon">API</div>
+          <div>
+            <h3>API Gateway</h3>
+            <p>Proxy y agregación para servicios de inventario y órdenes con rutas seguras y observabilidad.</p>
+          </div>
+        </article>
+
+        <article class="card" role="article">
+          <div class="icon">⚙️</div>
+          <div>
+            <h3>Microservicios</h3>
+            <p>Servicios desacoplados para inventario y órdenes, fáciles de escalar y desplegar.</p>
+          </div>
+        </article>
+
+        <article class="card" role="article">
+          <div class="icon">☁️</div>
+          <div>
+            <h3>Despliegue en Azure</h3>
+            <p>Integración con ACR, Container Apps y Log Analytics para despliegues reproducibles.</p>
+          </div>
+        </article>
+
+        <article class="card" role="article">
+          <div class="icon">🔒</div>
+          <div>
+            <h3>Seguridad</h3>
+            <p>Buenas prácticas: identidades administradas, secretos en Key Vault y roles RBAC.</p>
+          </div>
+        </article>
+      </section>
+
+      <footer>
+        <div>© <strong>Loginexo</strong> 2025</div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <small style="color:var(--muted)">Versión</small>
+          <div class="badge">v1.0.0</div>
+        </div>
+      </footer>
+    </section>
+
+    <aside class="aside" aria-label="Panel lateral">
+      <h3 class="panel-title">Estado del despliegue</h3>
+      <div class="list" role="list">
+        <div class="list-item" role="listitem">
+          <div>
+            <strong>Resource Group</strong>
+            <div><small class="muted">rg-loginexo-os</small></div>
+          </div>
+          <div class="badge">OK</div>
+        </div>
+
+        <div class="list-item" role="listitem">
+          <div>
+            <strong>ACR</strong>
+            <div><small class="muted">loginexoacrXXXX</small></div>
+          </div>
+          <div class="badge">Ready</div>
+        </div>
+
+        <div class="list-item" role="listitem">
+          <div>
+            <strong>Container App</strong>
+            <div><small class="muted">loginexo-app</small></div>
+          </div>
+          <div class="badge">Deployed</div>
+        </div>
+
+        <div class="list-item" role="listitem">
+          <div>
+            <strong>Logs</strong>
+            <div><small class="muted">Log Analytics</small></div>
+          </div>
+          <div class="badge">Connected</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px">
+        <button class="btn" style="width:100%;margin-bottom:8px" onclick="openConsole()">Abrir consola</button>
+        <button class="btn primary" style="width:100%" onclick="openDashboard()">Abrir dashboard</button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Scripts: interactividad ligera -->
+  <script>
+    // Tema simple (claro/oscuro) — persistente en localStorage
+    const root = document.documentElement;
+    const themeKey = 'loginexo-theme';
+    function applyTheme(t){
+      if(t === 'light'){
+        root.style.setProperty('--bg','#f6f9fc');
+        root.style.setProperty('--card','#ffffff');
+        root.style.setProperty('--muted','#556070');
+        root.style.setProperty('--accent-1','#06b6d4');
+        root.style.setProperty('--accent-2','#7c3aed');
+        root.style.setProperty('--glass','rgba(2,6,23,0.03)');
+        document.body.style.color = '#0b1220';
+      } else {
+        root.style.setProperty('--bg','#0f1724');
+        root.style.setProperty('--card','#0b1220');
+        root.style.setProperty('--muted','#9aa4b2');
+        root.style.setProperty('--accent-1','#6ee7b7');
+        root.style.setProperty('--accent-2','#60a5fa');
+        root.style.setProperty('--glass','rgba(255,255,255,0.04)');
+        document.body.style.color = '#e6eef6';
+      }
+      localStorage.setItem(themeKey, t);
+    }
+    function toggleTheme(){
+      const current = localStorage.getItem(themeKey) || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    }
+    // Inicializar tema
+    (function(){ const t = localStorage.getItem(themeKey) || 'dark'; applyTheme(t); })();
+
+    // Simulaciones de acciones
+    function openDocs(){ alert('Abrir documentación (simulado).'); }
+    function deploy(){ alert('Iniciando despliegue (simulado). Ejecuta el script maestro en tu entorno para desplegar.'); }
+    function openConsole(){ alert('Abrir consola (simulado).'); }
+    function openDashboard(){ alert('Abrir dashboard (simulado).'); }
+
+    // Mejoras de accesibilidad: focus visible
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Tab') document.body.classList.add('show-focus');
+    });
+  </script>
+</body>
+</html>
